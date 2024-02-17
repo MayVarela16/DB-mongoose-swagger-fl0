@@ -2,6 +2,55 @@ const express = require("express");
 const router = express.Router();
 const Task = require("../models/Task.js");
 
+
+/**
+ * @swagger
+ * tags:
+ *   name: Tasks
+ *   description: API para gestionar tareas
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Task:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: ID único de la tarea
+ *         title:
+ *           type: string
+ *           description: Título de la tarea
+ *         completed:
+ *           type: boolean
+ *           description: Indica si la tarea está completada
+ */
+
+/**
+ * @swagger
+ * /create:
+ *   post:
+ *     summary: Crea una nueva tarea
+ *     tags: [Tasks]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Task'
+ *     responses:
+ *       201:
+ *         description: Tarea creada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       500:
+ *         description: Hubo un problema al intentar crear la tarea
+*/
+
 //CREATE TASK
 router.post("/create", async(req, res) => {
     try {
@@ -15,6 +64,23 @@ router.post("/create", async(req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Obtiene todas las tareas
+ *     tags: [Tasks]
+ *     responses:
+ *       200:
+ *         description: Lista de todas las tareas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Task'
+ */
+
 //GET TASKS
 
 router.get("/", async(req, res) => {
@@ -25,6 +91,30 @@ router.get("/", async(req, res) => {
         console.error(error);
     }
 });
+
+/**
+ * @swagger
+ * /id/{_id}:
+ *   get:
+ *     summary: Obtiene una tarea por su ID
+ *     tags: [Tasks]
+ *     parameters:
+ *       - in: path
+ *         name: _id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID de la tarea a obtener
+ *     responses:
+ *       200:
+ *         description: Tarea encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       500:
+ *         description: Hubo un problema al intentar obtener la tarea
+ */
 
 //GET TASK BY ID
 
@@ -40,6 +130,30 @@ router.get("/id/:_id", async(req, res) => {
         });
     }
 }, )
+
+/**
+ * @swagger
+ * /markAsCompleted/{_id}:
+ *   put:
+ *     summary: Marca una tarea como completada
+ *     tags: [Tasks]
+ *     parameters:
+ *       - in: path
+ *         name: _id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID de la tarea a marcar como completada
+ *     responses:
+ *       200:
+ *         description: Tarea actualizada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       500:
+ *         description: Hubo un problema al intentar actualizar la tarea como completada
+ */
 
 //MARK TASK AS COMPLETED (en este endpoint no le permitimos que edite el titulo)
 
@@ -59,7 +173,40 @@ router.put("/markAsCompleted/:_id", async(req, res) => {
             });
         }
     }),
-
+/**
+ * @swagger
+ * /id/{_id}:
+ *   put:
+ *     summary: Actualiza el título de una tarea por su ID
+ *     tags: [Tasks]
+ *     parameters:
+ *       - in: path
+ *         name: _id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID de la tarea a actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *             required:
+ *               - title
+ *     responses:
+ *       200:
+ *         description: Tarea actualizada exitosamente (solo título)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Task'
+ *       500:
+ *         description: Hubo un problema al intentar actualizar la tarea
+ */
     //UPDATE TASK
 
     router.put("/id/:_id", async(req, res) => {
@@ -70,7 +217,30 @@ router.put("/markAsCompleted/:_id", async(req, res) => {
             console.error(error);
         }
     }),
-
+   /*
+    @swagger
+    * /id/{_id}:
+    *   delete:
+    *     summary: Elimina una tarea por su ID
+    *     tags: [Tasks]
+    *     parameters:
+    *       - in: path
+    *         name: _id
+    *         schema:
+    *           type: string
+    *         required: true
+    *         description: ID de la tarea a eliminar
+    *     responses:
+    *       200:
+    *         description: Tarea eliminada exitosamente
+    *         content:
+    *           application/json:
+    *             schema:
+    *               $ref: '#/components/schemas/Task'
+    *       500:
+    *         description: Hubo un problema al intentar eliminar la tarea
+    */
+   
     //DELETE TASK
 
     router.delete("/id/:_id", async(req, res) => {
