@@ -1,22 +1,23 @@
 {
-    "name": "ejercicio-mongo-solucion",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "start": "node src/index.js",
-        "dev": "nodemon --watch index.js"
-    },
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "dotenv": "16.4.1",
-        "express": "4.18.2",
-        "mongoose": "8.1.1",
-        "swagger-jsdoc": "^6.0.0",
-        "swagger-ui-express": "^5.0.0"
-    },
-    "devDependencies": {
-        "nodemon": "3.0.3"
-    }
+  "name": "db-mongoose-swagger-fl0",
+  "version": "1.0.0",
+  "description": "Para este ejercicio se pide documentar la API utilizando swagger y desplegar la misma en fl0. Debemos utilizar la API de tareas que creamos en la Review 2 de la semana pasada.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon --watch index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.4",
+    "express": "4.18.2",
+    "mongoose": "^8.1.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
 }
